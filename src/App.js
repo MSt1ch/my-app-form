@@ -6,7 +6,19 @@ import Input from './components/Input';
 import Popup from './components/Popup';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showPopup: false
+    };
+  }
 
+  togglePopup(e) {
+    e.preventDefault();
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
   
 
 
@@ -26,10 +38,16 @@ class App extends Component {
             <Input className="fname" type="text" name="first_name" placeholder="Имя"/>
             <Input className="last_name" type="text" name="last_name" placeholder="Фамилия"/>
             <Input className="phone" type="numer" name="last_name" placeholder="Телефон"/>
-            <Input className="bnt_submit" type="submit" value="Отправить"/>
+            <Input onClick={this.togglePopup.bind(this)} className="bnt_submit" type="submit" value="Отправить"/>
           </form>
         </div>
-        <Popup className="hidden" />
+        {this.state.showPopup ?
+          <Popup 
+            closePopup={this.togglePopup.bind(this)}
+          />
+          : null
+        }
+        
       </div>
     );
   }
